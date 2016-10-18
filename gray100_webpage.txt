@@ -1,4 +1,4 @@
-/*from Taworn*/
+/*from Taworn1*/
 <style>
 img {
 -webkit-filter: grayscale(100%);
