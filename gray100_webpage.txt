@@ -1,4 +1,4 @@
-
+/*from Taworn*/
 <style>
 img {
 -webkit-filter: grayscale(100%);
