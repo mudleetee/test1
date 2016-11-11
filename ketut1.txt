@@ -1,0 +1,62 @@
+ตีความ - (in-interface ต้องคู่กับ dst-address) และ  (out-interface ต้องคู่กับ scr-address)
+
+in-interface=wan1   dst-address=192.168.1.0/24 หมายถึง เข้ามาทาง wan1 ปลายทางอยู่ที่วงแลน(ดาวโหลด)
+out-interface=wan1 src-address=192.168.1.0/24 หมายถึง จะออกไปทาง wan1 คนที่จะออกคือคนในวง lan เรา(อัพโหลด)
+
+เอา mask packet proxyดาวโหลด มาทำ new mask packet ของเกมส์(pktg) 
+เอา mask packet lanดาวโหลด    มาทำ new mask packet ของเกมส์(pktg) 
+
+เอา mask packet proxyดาวโหลด มาทำ new mask packet ของ light browsing(pktbl) 
+เอา mask packet lanดาวโหลด    มาทำ new mask packet ของ light browsing(pktbl) 
+
+เอา mask packet proxyดาวโหลด มาทำ new mask packet ของ extreme browsing(pktbw)
+เอา mask packet lanดาวโหลด    มาทำ new mask packet ของ extreme browsing(pktbw) 
+
+เอา mask packet proxyดาวโหลด มาทำ new mask packet ของ ไฟล์ดาวโหลด(pktx)
+เอา mask packet lanดาวโหลด    มาทำ new mask packet ของ ไฟล์ดาวโหลด(pktx)
+
+เอา mask packet proxyดาวโหลด มาทำ new mask packet ของ youtubeดาวโหลด(pkts)
+เอา mask packet lanดาวโหลด    มาทำ new mask packet ของ youtubeดาวโหลด(pkts)
+
+Download Packets Lan via Wan1
+
+2 con
+src-address,out-inteface=wan1 
+src-address,out-inteface=wan2
+
+
+
+protocal=tcp,dst-port=เกมส์1
+
+5340-5352,6000-10001,14009-14030,18901-18909
+40000,9300,9400,9700,7342,8005-8010,37466,36567,8822
+47611,16666,20000,5105,29000,18901-18909,9015
+27005,27015
+27005-27020,13055,7800-7900,12060-12070
+8005-8010,9068,1293,1479,9401,9600,30000
+14009-14030,42051-42052,40000-40050,13000-13080
+
+Client Online Games
+
+0-512000
+512000-1500000
+Light Browsing Lan
+
+Exreme Browsing Lan
+
+High Lan
+Document Lan
+
+Video Lan
+
+
+protocal=tcp,dst-port=เกมส์2
+
+connection-byte=0-512000,protocal=tcp
+connection-byte=512000-1500000,protocal=tcp
+
+layer7-protocal=high
+layer7-protocal=document
+
+layer7-protocal=youtube
+layer7-protocal=streaming
