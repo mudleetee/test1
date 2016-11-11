@@ -14,9 +14,9 @@ bool used_in_col[9][10];
 bool used_in_block[3][3][10];
 
 void set_used(position pos, int number, bool use){
-    used_in_row[pos.row][number] = use;
-    used_in_col[pos.col][number] = use;
-    used_in_block[pos.row/3][pos.col/3][number] = use;
+    used_in_row[pos.row][number] = use; // This number was used in this row.
+    used_in_col[pos.col][number] = use; // This number was used in this col.
+    used_in_block[pos.row/3][pos.col/3][number] = use; // This number was used in this block 3x3.
 }
 void init_used(){
 	int i, j, k;
@@ -63,10 +63,13 @@ void read_input(char file_name[100], int sudoku[9][9], int *count, int ***test){
 bool can_fill(int sudoku[9][9], position pos, int number){
     bool blank;
     bool not_used;
+    // "blank" used to check position that you want =0(empty) ? , return 0 if !=0(not empty), return 1 if ==0(empty)
     blank = (sudoku[pos.row][pos.col] == 0);
     printf("row=%d, col=%d, number =%d\n",pos.row, pos.col, number);
-    printf("%d\n",blank);
+    printf("blank=%d",blank);
+    //"not_used" will return return 1 (empty) if this number was not used in this row && col && block3x3
     not_used = !used_in_row[pos.row][number] && !used_in_col[pos.col][number] && !used_in_block[pos.row/3][pos.col/3][number];
+    printf(" not_used=%d\n", not_used);
     if (blank && not_used){
     	return true;
     }else{
@@ -116,19 +119,6 @@ int main(int argc, char *argv[]){
             printf("+---+---+---+");
         }
     }
-    
-    /* test
-    for(i=0;i<9;i++){
-        printf("\n");
-        for(j=0;j<9;j++){
-            if (sudoku[i][j] != 0){
-                printf("%d",sudoku[i][j]);
-            }
-            else{
-                printf("#");
-            }
-        }
-    }
-    */
+   
     return 0;
 }
